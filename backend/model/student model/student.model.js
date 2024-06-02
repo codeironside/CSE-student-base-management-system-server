@@ -41,8 +41,12 @@ const USERS = mongoose.Schema(
     phoneNumber: { type: String },
     level: { type: String },
     department: { type: String },
+    matricNumber: {
+      type: String,
+      required: [true, "please add an your matric NUmber"],
+      unique: true,
+    },
     faculty: { type: String },
-
   },
 
   {

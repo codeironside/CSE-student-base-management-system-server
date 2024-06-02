@@ -13,7 +13,6 @@ const nodemailer = require("nodemailer");
 
 const currentDateTimeWAT = DateTime.now().setZone("Africa/Lagos");
 
-
 const register_student = asynchandler(async (req, res) => {
   try {
     const ip = req.ip;
@@ -25,13 +24,12 @@ const register_student = asynchandler(async (req, res) => {
       password,
       userName,
       phoneNumber,
-      referralCode,
       pictureUrl,
-      state,
-      city,
-      role,
-      county,
-      agreement,
+      matricNumber,
+      bio,
+      department,
+      level,
+      faculty,
     } = req.body;
 
     if (
@@ -72,11 +70,11 @@ const register_student = asynchandler(async (req, res) => {
         userName,
         phoneNumber,
         pictureUrl,
-        state,
-        city,
-        county,
-        role,
-        agreement,
+        bio,
+        level,
+        department,
+        faculty,
+        matricNumber
       });
       const token = generateToken(createUsers._id);
       if (createStudent) {
@@ -120,7 +118,9 @@ const register_student = asynchandler(async (req, res) => {
         });
       }
     } else {
-        throw Object.assign(new Error(`registration unsucessful`),{statusCode:401})
+      throw Object.assign(new Error(`registration unsucessful`), {
+        statusCode: 401,
+      });
     }
   } catch (error) {
     throw Object.assign(new Error(`${error}`), {
@@ -128,7 +128,6 @@ const register_student = asynchandler(async (req, res) => {
     });
   }
 });
-
 
 const generateToken = (id) => {
   return jwt.sign(
