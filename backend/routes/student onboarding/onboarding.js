@@ -15,7 +15,7 @@ const {
   landing_page,
   changePassword,
   logout_user,
-} = require("../controller/student onboarding/register.student.controller.js");
+} = require("../../controller/studentonboarding/register.student.controller");
 const Router = express.Router();
 
 //register users
