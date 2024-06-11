@@ -1,7 +1,7 @@
 {
   "name": "babers-saloon",
   "version": "1.0.0",
-  "description": "hey why not we leave this en=mpty for now",
+  "description": "hey why not we leave this empty for now",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

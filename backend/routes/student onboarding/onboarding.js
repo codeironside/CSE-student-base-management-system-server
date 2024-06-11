@@ -15,12 +15,14 @@ const {
   landing_page,
   changePassword,
   logout_user,
+  forgetpassword
 } = require("../../controller/studentonboarding/register.student.controller");
 const Router = express.Router();
 
 //register users
 Router.route("/register").post(register_student);
-// //login users
+//forget password
+ Router.route("/pass").put(protect,forgetpassword)
 // Router.route("/login").post(login_users);
 // //update users
 // Router.route("/update/:userId").put(protect, updateUser);
