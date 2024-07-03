@@ -74,9 +74,9 @@ const register_student = asynchandler(async (req, res) => {
         level,
         department,
         faculty,
-        matricNumber
+        matricNumber,
       });
-      const token = generateToken(createUsers._id);
+      const token = generateToken(createStudent._id);
       if (createStudent) {
         const transporter = nodemailer.createTransport({
           service: "gmail",
@@ -86,7 +86,84 @@ const register_student = asynchandler(async (req, res) => {
           },
         });
         // console.log(transporter);
-        const html = `
+        const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .header {
+            background-color: #795548;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content h2 {
+            color: #795548;
+        }
+        .content p {
+            color: #333333;
+        }
+        .button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #795548;
+            color: #ffffff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .footer {
+            background-color: #f5f5f5;
+            color: #777777;
+            text-align: center;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Welcome to Our Community!</h1>
+        </div>
+        <div class="content">
+            <h2>Hello ${firstName},</h2>
+            <p>We are thrilled to have you here! Thank you for signing up. We are committed to providing you with the best experience possible.</p>
+            <p>If you have any questions or need assistance, feel free to reach out to our support team. We're always here to help.</p>
+            <a href="#" class="button">Join the Journey</a>
+            <p>Best regards,<br>The Group one Team</p>
+        </div>
+        <div class="footer">
+          <p>&copy; 2024 Group One. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
+
                   `;
 
         const mailOptions = {
@@ -107,12 +184,11 @@ const register_student = asynchandler(async (req, res) => {
               .status(202)
               .header("Authorization", `Bearer ${token}`)
               .json({
-                ...userWithoutPassword._doc,
-                referredUsers,
+                ...createStudent._doc,
               });
 
             logger.info(
-              `User with ID ${createUsers._id} was created at ${createUsers.createdAt} - ${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip}`
+              `User with ID ${createStudent._id} was created at ${createStudent.createdAt} - ${res.statusCode} - ${res.statusMessage} - ${req.originalUrl} - ${req.method} - ${req.ip}`
             );
           }
         });
@@ -123,6 +199,7 @@ const register_student = asynchandler(async (req, res) => {
       });
     }
   } catch (error) {
+    console.log(error);
     throw Object.assign(new Error(`${error}`), {
       statusCode: error.statusCode,
     });
