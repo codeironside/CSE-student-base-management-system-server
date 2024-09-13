@@ -29,6 +29,7 @@
     "express-async-handler": "^1.2.0",
     "express-session": "^1.17.3",
     "formidable": "^3.5.1",
+    "geoip-lite": "^1.4.10",
     "intl": "^1.2.5",
     "is-online": "^10.0.0",
     "jsonwebtoken": "^9.0.2",

@@ -16,35 +16,7 @@ const currentDateTimeWAT = DateTime.now().setZone("Africa/Lagos");
 const register_student = asynchandler(async (req, res) => {
   try {
     const ip = req.ip;
-    const {
-      firstName,
-      middleName,
-      lastName,
-      email,
-      password,
-      userName,
-      phoneNumber,
-      pictureUrl,
-      matricNumber,
-      bio,
-      department,
-      level,
-      faculty,
-    } = req.body;
-
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !password ||
-      !userName ||
-      !phoneNumber
-    ) {
-      throw Object.assign(new Error("Fields cannot be empty"), {
-        statusCode: 400,
-      });
-    }
-
+    
     const findEmail = await STUDENT.findOne({ email: email });
     if (findEmail) {
       throw Object.assign(new Error("User already exists"), {
@@ -169,7 +141,7 @@ const register_student = asynchandler(async (req, res) => {
         const mailOptions = {
           from: process.env.gmail,
           to: email,
-          subject: `confirm yout mail, ${lastName} `,
+          subject: `confirm your mail, ${lastName} `,
           html: html,
         };
 
